@@ -27,17 +27,6 @@ async def weather_forecast(city: str, latitude: float, longitude: float) -> dict
     }}
 
 
-def valid_forecast(weather_forecast_data: dict, filter: dict = {}) -> bool:
-    city = list(weather_forecast_data.keys())[0]
-    city_forecast = weather_forecast_data[city]
-
-    for key in city_forecast:
-        if key in filter and not eval(f'{city_forecast[key]} {filter[key]}'):
-            return False
-
-    return True
-
-
 def print_weather_forecast(weather_forecast_data: dict) -> None:
     city = list(weather_forecast_data.keys())[0]
     city_forecast = weather_forecast_data[city]
@@ -50,14 +39,16 @@ def print_weather_forecast(weather_forecast_data: dict) -> None:
 
 async def main() -> None:
     results = await asyncio.gather(weather_forecast('Porlamar', 10.57, 63.51),
-                               weather_forecast('Moroni', 11.42, 43.15),
-                               weather_forecast('Helsinki', 60.10, 24.56))
+                                   weather_forecast('Moroni', 11.42, 43.15),
+                                   weather_forecast('Helsinki', 60.10, 24.56))
 
+    all_forecasts = {}
+    for forecast in results:
+        all_forecasts.update(forecast)
 
-    for data in res:
-        if valid_forecast(data):
-            print_weather_forecast(data)
-            print("")
+    all_forecasts = dict(sorted(all_forecasts.items(), key=lambda item: item[1][TEMPERATURE]))
+
+    print(all_forecasts)
 
 
 if __name__ == "__main__":

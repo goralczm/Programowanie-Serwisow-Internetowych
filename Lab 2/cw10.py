@@ -10,6 +10,7 @@ async def fetch(url: str) -> str:
 
 async def process_url(url: str, output_file_name: str) -> None:
     data = await fetch(url)
+    await asyncio.sleep(1)
     with open(output_file_name, 'w') as output:
         output.write(str(data))
 
@@ -17,8 +18,7 @@ async def process_url(url: str, output_file_name: str) -> None:
 async def main() -> None:
     await asyncio.gather(process_url('https://dogapi.dog/api/v2/facts', 'facts.txt'),
                          process_url('https://dogapi.dog/api/v2/breeds', 'breeds.txt'),
-                         process_url('https://dogapi.dog/api/v2/groups', 'groups.txt')
-                         )
+                         process_url('https://dogapi.dog/api/v2/groups', 'groups.txt'))
 
 
 if __name__ == "__main__":

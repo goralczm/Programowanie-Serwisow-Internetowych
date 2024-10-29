@@ -11,7 +11,7 @@ async def fetch(url: str) -> ClientResponse:
                 if 200 <= response.status <= 299:
                     return await response.json()
                 elif 500 <= response.status <= 599:
-                    print('Checking again')
+                    print('Ponawiam zapytanie')
                 else:
                     return {}
 
