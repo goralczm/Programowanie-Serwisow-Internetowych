@@ -11,13 +11,13 @@ async def fetch(url: str) -> str:
 async def main() -> None:
     cat_api = await fetch('https://api.thecatapi.com/v1/images/search')
 
-    print(cat_api)
-    print(cat_api[0]['url'])
+    cat_img_url = cat_api[0]['url']
 
-    url = cat_api[0]['url']
     async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            print(response.content.read())
+        async with session.get(cat_img_url) as response:
+            img = await response.content.read()
+            with open('output.jpg', 'wb') as output:
+                output.write(img)
 
 
 if __name__ == "__main__":

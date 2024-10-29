@@ -1,0 +1,1 @@
+{'data': [{'id': '5ebe029b-b4e8-4c90-8c03-8623ba2c0b9a', 'type': 'fact', 'attributes': {'body': 'Puppies’ eyes do not fully open until they’re about 12 days old.'}}]}
