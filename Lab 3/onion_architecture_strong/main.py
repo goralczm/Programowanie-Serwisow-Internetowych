@@ -9,6 +9,7 @@ async def main() -> None:
     repository = AirQualityRepository()
     service = AirQualityService(repository=repository)
 
+
     last_pm10_index = await service.get_air_quality_index(consts.SENSOR_ID)
     mean_pm10_value = await service.get_mean_params(consts.SENSOR_ID)
 

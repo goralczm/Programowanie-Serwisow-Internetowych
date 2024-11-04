@@ -2,9 +2,10 @@ from dataclasses import dataclass, asdict
 
 @dataclass
 class Post:
-    userId: int
+    postId: int
     id: int
-    title: str
+    name: str
+    email: str
     body: str
 
     def dict(self):
