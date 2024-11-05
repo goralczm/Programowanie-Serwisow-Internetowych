@@ -1,7 +1,9 @@
 from dataclasses import dataclass, asdict
+from datetime import datetime
 
 @dataclass
 class Post:
+    event_time: datetime
     userId: int
     id: int
     title: str

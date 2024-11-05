@@ -1,13 +1,14 @@
 import aiohttp
 
 from typing import Iterable
+from datetime import datetime
 
 from domains.comment import Comment
 from repositories.icomment_repository import ICommentRepository
 
 
 class CommentRepository(ICommentRepository):
-    async def get_all_comment_params(self) -> Iterable[Comment] | None:
+    async def get_all_comments_params(self) -> Iterable[Comment] | None:
         all_params = await self._get_params()
         parsed_params = await self._parse_params(all_params)
 
@@ -22,7 +23,8 @@ class CommentRepository(ICommentRepository):
                 return await response.json()
 
     async def _parse_params(self, params: Iterable[dict]) -> Iterable[Comment]:
-        return [Comment(postId=record.get("postId"),
+        return [Comment(event_time=datetime.now().time(),
+                        postId=record.get("postId"),
                         id=record.get("id"),
                         name=record.get("name"),
                         email=record.get("email"),

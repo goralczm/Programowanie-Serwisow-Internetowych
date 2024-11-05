@@ -1,6 +1,7 @@
 import aiohttp
 
 from typing import Iterable
+from datetime import datetime
 
 from domains.post import Post
 from repositories.ipost_repository import IPostRepository
@@ -22,7 +23,8 @@ class PostRepository(IPostRepository):
                 return await response.json()
 
     async def _parse_params(self, params: Iterable[dict]) -> Iterable[Post]:
-        return [Post(userId=record.get("userId"),
+        return [Post(event_time=datetime.now().time(),
+                     userId=record.get("userId"),
                      id=record.get("id"),
                      title=record.get("title"),
                      body=record.get("body")) for record in params]
